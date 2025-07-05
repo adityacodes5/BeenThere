@@ -1,23 +1,20 @@
-//
-//  ContentView.swift
-//  BeenThere
-//
-//  Created by Aditya Makhija on 2025-07-04.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var locationManager = LocationManager()
+    @State private var isOnboarded = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if isOnboarded {
+            BottomBar()
+                .environmentObject(locationManager)
+        } else {
+            OnboardingView(isOnboarded: $isOnboarded, locationManager: locationManager)
         }
-        .padding()
     }
 }
+
+
 
 #Preview {
     ContentView()
